@@ -7,7 +7,6 @@ import pickle
 import csv
 import os
 import tarfile
-import csv
 import itertools
 import sys
 from itertools import zip_longest
@@ -92,6 +91,22 @@ def read_csv_list(filename):
 		data = list(reader)
 	return data
 #end read_csv_list
+
+#read data from csv file into dictionary, where first col is key and second is value
+#doesn't handle duplicates, will just overwrite with the latest
+def read_csv_dict(filename):
+	#read data (utf-8)
+	with open(filename, 'r', encoding='utf-8') as f:
+		reader = csv.reader(f, delimiter=",")
+		data = list(reader)
+
+	#convert to dict
+	data_dict = {}
+	for row in data:
+		data_dict[row[0]] = row[1]
+
+	return data_dict
+#end read_csv_dict
 
 #loads csv data into nested dictionary structure (like what you get from json)
 def load_csv(filename):
